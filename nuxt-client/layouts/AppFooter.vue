@@ -1,5 +1,5 @@
 <template>
-  <v-footer app dark padless width="auto" absolute>
+  <v-footer app padless width="auto" absolute>
     <v-container fluid>
       <v-row align="center">
         <v-col cols="6">

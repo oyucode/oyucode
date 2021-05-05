@@ -1,17 +1,15 @@
 <template>
   <v-app>
-    <AppBar />
     <AppView />
-    <AppFooter />
+    <!-- <AppFooter /> -->
   </v-app>
 </template>
 
 <script>
 export default {
   components: {
-    AppBar: () => import('./AppBar'),
     AppView: () => import('./AppView'),
-    AppFooter: () => import('./AppFooter'),
+    // AppFooter: () => import('./AppFooter'),
   },
 }
 </script>

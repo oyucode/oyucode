@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <v-container fluid>
+    <v-container class="py-0 px-0" fluid>
       <nuxt />
     </v-container>
   </v-main>
