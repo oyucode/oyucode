@@ -45,7 +45,7 @@
 export default {}
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 .v-card:hover
   cursor: pointer
   transition-duration: 0.5s

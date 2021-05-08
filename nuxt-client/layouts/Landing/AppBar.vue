@@ -20,10 +20,16 @@
           v-text="link.name"
         />
       </v-col>
+
+      <!--  -->
       <v-col cols="2" align="end">
-        <v-btn text class="text-white normal-case tracking-normal text-sm"
-          >Log In</v-btn
-        >
+        <template v-if="$auth.loggedIn">
+          <v-btn @click="$auth.logout">Log out</v-btn>
+        </template>
+        <template v-else>
+          <LandingLogin />
+        </template>
+        <!--  -->
       </v-col>
     </v-row>
     <v-row justify="center" align="center">

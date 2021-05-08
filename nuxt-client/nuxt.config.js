@@ -20,10 +20,22 @@ export default {
   components: true,
 
   buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/vuetify'],
-  modules: ['@nuxtjs/axios', 'nuxt-webfontloader', '@nuxtjs/pwa'],
+  modules: [
+    '@nuxtjs/axios',
+    'nuxt-webfontloader',
+    '@nuxtjs/pwa',
+    '@nuxtjs/auth-next',
+  ],
+
+  auth: {
+    strategies: {
+      google: {
+      },
+    },
+  },
 
   axios: {
-    baseURL: 'http://localhost:8000',
+    baseURL: process.env.BASE_URL || 'http://localhost:8000',
   },
 
   pwa: {

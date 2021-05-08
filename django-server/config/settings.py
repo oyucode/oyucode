@@ -1,21 +1,12 @@
 from pathlib import Path
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ett9rj*j1hv6z#t&$qgz#*)2w^lo5l3p*pl+!2(h1xo_+e(4ou'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -24,10 +15,46 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.contrib.sites",
+    # Third party packages
     'rest_framework',
     'corsheaders',
+    "rest_framework.authtoken",
+    "dj_rest_auth",
+    "allauth",
+    "allauth.account",
+    "dj_rest_auth.registration",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    # Apps
     'core',
+    'users',
 ]
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+REST_USE_JWT = True
+SITE_ID = 1
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,  # IMPORTANT
+    'BLACKLIST_AFTER_ROTATION': True,  # IMPORTANT
+    'UPDATE_LAST_LOGIN': True,
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -39,6 +66,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "dj_rest_auth.utils.JWTCookieAuthentication",
+    ),
+}
 
 ROOT_URLCONF = 'config.urls'
 
