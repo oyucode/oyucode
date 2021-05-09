@@ -1,3 +1,7 @@
+from django.conf import settings
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.renderers import JSONRenderer
@@ -55,3 +59,9 @@ class SubmitCode(BaseView):
             'success': True
         })
 
+
+class GoogleLogin(SocialLoginView):
+    authentication_classes = []  # disable authentication
+    adapter_class = GoogleOAuth2Adapter
+    callback_url = "http://localhost:3000/callback"
+    client_class = OAuth2Client

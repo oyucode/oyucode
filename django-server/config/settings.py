@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     # Apps
     'core',
-    'users',
 ]
 
 
@@ -37,11 +36,16 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': [
             'profile',
             'email',
+            'photo'
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
         }
     }
+}
+REST_AUTH_SERIALIZERS = {
+    # 'REGISTER_SERIALIZER': 'core.serializers.UserRegister'
+    'USER_DETAILS_SERIALIZER': 'core.serializers.UserMe'
 }
 
 SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
@@ -49,6 +53,7 @@ SOCIALACCOUNT_EMAIL_REQUIRED = False
 REST_USE_JWT = True
 SITE_ID = 1
 SIMPLE_JWT = {
+    'USER_ID_FIELD': 'uuid',
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': True,  # IMPORTANT
@@ -106,6 +111,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'core.BaseUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

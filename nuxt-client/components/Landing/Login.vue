@@ -36,7 +36,11 @@ export default {
   methods: {
     googleAuth() {
       console.log('clicked')
-      this.$auth.loginWith('google')
+      try {
+        this.$auth.loginWith('google')
+      } catch (err) {
+        console.log(err)
+      }
     },
   },
 }

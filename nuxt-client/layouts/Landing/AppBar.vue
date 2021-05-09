@@ -24,7 +24,31 @@
       <!--  -->
       <v-col cols="2" align="end">
         <template v-if="$auth.loggedIn">
-          <v-btn @click="$auth.logout">Log out</v-btn>
+          <v-menu
+            open-on-hover
+            rounded
+            transition="slide-x-transition"
+            offset-y
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-avatar v-bind="attrs" v-on="on">
+                <v-img :src="$auth.user.picture" :alt="$auth.user.username" />
+              </v-avatar>
+            </template>
+            <v-list nav dense>
+              <v-list-item-group v-model="selectedItem" color="primary">
+                <v-list-item v-for="(item, i) in items" :key="i">
+                  <v-list-item-icon>
+                    <v-icon v-text="item.icon"></v-icon>
+                  </v-list-item-icon>
+
+                  <v-list-item-content>
+                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-menu>
         </template>
         <template v-else>
           <LandingLogin />
@@ -72,7 +96,21 @@ export default {
         name: 'Meet the Team',
       },
     ],
+    items: [
+      { text: 'My Files', icon: 'mdi-folder' },
+      { text: 'Shared with me', icon: 'mdi-account-multiple' },
+      { text: 'Starred', icon: 'mdi-star' },
+      { text: 'Recent', icon: 'mdi-history' },
+      { text: 'Offline', icon: 'mdi-check-circle' },
+      { text: 'Uploads', icon: 'mdi-upload' },
+      { text: 'Backups', icon: 'mdi-cloud-upload' },
+    ],
   }),
+  methods: {
+    logout() {
+      this.$auth.logout()
+    },
+  },
 }
 </script>
 <style lang="sass">

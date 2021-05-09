@@ -1,4 +1,5 @@
 export default {
+  target: 'static',
   ssr: false,
   head: {
     titleTemplate: 'OyuCode | CodeHub',
@@ -27,17 +28,33 @@ export default {
     '@nuxtjs/auth-next',
   ],
 
+  axios: {
+    baseURL: process.env.BASE_URL,
+  },
+
   auth: {
     strategies: {
       google: {
+        clientId: process.env.G_CLIENT_ID,
+        codeChallengeMethod: '',
+        responseType: 'code',
+        endpoints: {
+          token: 'http://localhost:8000/api/v1/core/google/',
+          userInfo: 'http://localhost:8000/api/v1/core/auth/user/',
+          logout: {
+            url: 'http://localhost:8000/api/v1/core/auth/logout/',
+            method: 'post',
+          },
+        },
+        redirectUri: '',
       },
     },
+    redirect: {
+      callback: '/callback',
+      login: '/',
+      home: '/',
+    },
   },
-
-  axios: {
-    baseURL: process.env.BASE_URL || 'http://localhost:8000',
-  },
-
   pwa: {
     manifest: {
       lang: 'en',
